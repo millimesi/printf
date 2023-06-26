@@ -33,6 +33,11 @@ void switch0(const char *format, int i, va_list entry)
 				intger_handler(entry);
 				break;
 			}
+		case '%':
+			{
+				printf_37();
+				break;
+			}
 		default:
 			{
 				defoult(format, i);

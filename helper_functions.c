@@ -26,7 +26,15 @@ void s_handler(va_list entry)
 {
 	 char *str = va_arg(entry, char *);
 
-	 write(1, str, slen(str));
+	 if (str == NULL)
+	 {
+		 str = "(null)";
+		 write(1, str, slen(str));
+	 }
+	 else
+	 {
+		 write(1, str, slen(str));
+	 }
 }
 /**
   *defoult - its invoked when there is nothing to handle
@@ -85,4 +93,14 @@ void intger_handler(va_list entry)
 	/*printf("%d\n", n);*/
 	write(1, digit, dlen(deci));
 	free(digit);
+}
+
+/**
+ * printf_37 - prints the char 37.
+ * Return: 1.
+ */
+int printf_37(void)
+{
+	_putchar(37);
+	return (1);
 }

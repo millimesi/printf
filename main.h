@@ -3,11 +3,12 @@
 #include <stdlib.h>
 #include <stdarg.h>
 int _printf(const char *format, ...);
+int _putchar(char c);
 int slen(char *s);
 int dlen(int d);
 char *itoa(int a);
 int _abs(int n);
-
+int printf_37(void);
 
 /*helper functions*/
 void char_handler(va_list entry);
