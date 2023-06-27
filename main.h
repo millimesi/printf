@@ -10,16 +10,16 @@
 
 
 /**
- * struct format - match the conversion specifiers for printf
- * @id: type char pointer of the specifier i.e (l, h) for (d, i, u, o, x, X)
- * @f: type pointer to function for the conversion specifier
+ * struct fmt - matcher
+ * @specifier : type char pointer
+ * @func: func pointer
  *
  */
 
 typedef struct fmt
 {
-        char *specifier;
-        int (*func)();
+	char *specifier;
+	int (*func)();
 } matcher;
 
 int _printf(const char *format, ...);
