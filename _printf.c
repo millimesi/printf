@@ -1,42 +1,45 @@
-#include <unistd.h>
-#include <stdarg.h>
 #include "main.h"
 /**
-  *_printf - prints everthing
-  *@format: array of chars
-  *Return: number of bytes to write
-  *
-  *
-  */
-
-
-int _printf(const char *format, ...)
+ * _printf - is a function that works like printf
+ * @format: array of chars
+ * Return: the number of bytes is written
+ *
+ *
+ */
+int _printf(const char * const format, ...)
 {
-	char *error = "error - too few arguments to function ‘_printf’\n";
+	matcher marr[] = {
+		{"%s", string_hadler}, {"%c", handle_char},
+		{"%%", handele_percent},
+		{"%i", int_handler}, {"%d", decimal_handler}
+	};
 
-	if (format)
+	va_list ap;
+	int i = 0, size, len = 0;
+
+	va_start(ap, format);
+
+	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
+		return (-1);
+label:
+	while (format[i] != '\0')
 	{
-		int i = 0;
-		int len = 0;
-		va_list entry;
-
-		va_start(entry, format);
-		while (format[i])
+		size = 4;
+		while (size >= 0)
 		{
-			if (format[i] == '%')
+			if (marr[size].specifier[0] == format[i]
+					&& marr[size].specifier[1] == format[i + 1])
 			{
-				i++;
-				switch0(format, i, entry);
+				len += marr[size].func(ap);
+				i = i + 2;
+				goto label;
 			}
-			else
-			{
-				error_handler(format, i);
-			}
-			i++;
-			len++;
+			size--;
 		}
-		return (len);
-		va_end(entry);
+		_putchar(format[i]);
+		len++;
+		i++;
 	}
-	return (write(2, error, 52));
+	va_end(ap);
+	return (len);
 }
